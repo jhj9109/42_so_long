@@ -34,4 +34,3 @@ void	exit_valid(t_args *x)
 	free_args(x);
 	exit(EXIT_SUCCESS);
 }
-

@@ -29,7 +29,7 @@ t_list	*ft_lstlast(t_list *head)
 
 	if (head == NULL)
 		return (NULL);
-	cur = head; 
+	cur = head;
 	while (cur->next)
 		cur = cur->next;
 	return (cur);

@@ -29,7 +29,6 @@ static bool	is_walled_in(int w, int h, char *lines)
 	return (true);
 }
 
-
 static bool	check_map(t_args *x, int w, int h, char *lines)
 {
 	int	r;

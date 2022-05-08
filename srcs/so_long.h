@@ -26,8 +26,8 @@ typedef struct s_list {
 
 typedef struct s_player {
 	int	r;
-	int c;
-	int collect;
+	int	c;
+	int	collect;
 }				t_player;
 
 typedef struct s_args {
