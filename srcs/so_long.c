@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonjan <hyeonjan@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:37:57 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/06 19:38:00 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/24 22:43:55 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(void)
+static int	_on_close(t_args	*x)
 {
-	//key => x 클릭에 의한 종료도 시그널 존재.
-	/*
-	'0': empty
-	'1': wall
-	'C': collectible
-	'E': map exit
-	'P': player’s starting position.
+	exit(EXIT_SUCCESS);
+}
 
 	mlx_loop_hook 함수 인자로 printf정도만 하는 함수 포인터를 넘겨주시고
 	구동해보시면 애니메이션을 어떻게 넣어야할지 감이 오실거에용
 
-	mlx_hook에 key_exit
-	key_press로 esc
-	mlx_hook(win_ptr, 17, 0, (실행될함수), (넘겨줄인자값));
+int	main(int ac, char **av)
+{
+	t_args	*x;
 
-	The X server can report DestroyNotify events to clients wanting information
-	about which windows are destroyed.
-	The X server generates this event whenever a client application destroys
-	a window by calling XDestroyWindow() or XDestroySubwindows().
-	*/
-	//mlx_destory
+	if (ac != 2)
+		exit_invalid(NULL, "Error\n", "Program must have only one argument!\n");
+	t_args_init(&x);
+	parse(x, av[1]);
+	x->mlx = mlx_init();
+	if (!(x->mlx))
+		exit_error(x, "mlx_init failed\n");
+	x->win = mlx_new_window(x->mlx, x->w * TILE_SIZE, x->h * TILE_SIZE, "./so_long");
+	if (!(x->win))
+		exit_error(x, "mlx_new_window failed\n");
+	map_init(x);
+	map_render(x);
+	mlx_loop_hook(x->mlx, &_on_frame, x);
+	mlx_hook(x->win, X_EVENT_KEY_PRESS, 0, &on_key_press, x);
+	mlx_hook(x->win, X_EVENT_CLOSE, 0, &_on_close, x);
+	mlx_loop(x->mlx);
 }
