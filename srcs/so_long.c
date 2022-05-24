@@ -17,8 +17,7 @@ static int	_on_close(t_args	*x)
 	exit(EXIT_SUCCESS);
 }
 
-	mlx_loop_hook 함수 인자로 printf정도만 하는 함수 포인터를 넘겨주시고
-	구동해보시면 애니메이션을 어떻게 넣어야할지 감이 오실거에용
+
 
 int	main(int ac, char **av)
 {
