@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:37:57 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/24 22:43:55 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/25 19:49:50 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,30 @@ static int	_on_close(t_args	*x)
 }
 
 
+static int	_on_frame(t_args *x)
+{
+	static int frame = 0;
+	int n = 4000;//1sec 12000
+	
+	frame++;
+	if (frame == n)
+	{
+		frame = 0;
+		t_object *cur = x->obj;
+		while (cur)
+		{
+			if (cur->img_num == 1)
+				cur->img_num = 2;
+			else
+				cur->img_num = 1;
+			// cur->img_num = (cur->img_num + 1) % 3;
+			cur = cur->next;
+		}
+		printf("frame: %d, img_num: %d\n", frame / n, x->obj->img_num);
+		map_render(x);
+	}
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
