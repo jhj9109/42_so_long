@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:34:52 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 19:49:00 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:39:44 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 #  define BUFFER_SIZE 500
 # endif
 
-/* # include "./minilibx_opengl_20191021/mlx.h" */
 # include "mlx.h"
 # include <unistd.h>
 # include <stdbool.h>
