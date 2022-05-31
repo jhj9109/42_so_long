@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:09:56 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 21:10:18 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:50:55 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	_ctrl_collectable(t_object *collectable)
 	}
 }
 
-/* 1sec => 12000 */
 int	on_frame(t_args *x)
 {
 	static int	frame = 0;
