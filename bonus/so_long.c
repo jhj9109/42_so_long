@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:37:57 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:07:21 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:54:32 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av)
 	map_init(x);
 	map_render(x);
 	mlx_loop_hook(x->mlx, &on_frame, x);
-	mlx_hook(x->win, X_EVENT_KEY_PRESS, 0, &on_key_press, x);
+	mlx_hook(x->win, X_EVENT_KEY_RELEASE, 0, &on_key_press, x);
 	mlx_hook(x->win, X_EVENT_CLOSE, 0, &_on_close, x);
 	mlx_loop(x->mlx);
 }
