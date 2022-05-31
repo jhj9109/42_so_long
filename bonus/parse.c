@@ -79,30 +79,29 @@ static void	_create_map(t_args *x, int w, int h)
 	x->map = map;
 }
 
-static void	_fill_map(t_args *x, int w, int h, char *lines)
+static void	_fill_map(t_args *x, int r, int c, char *lines)
 {
-	int			r;
-	int			c;
-
 	r = -1;
-	while (++r < h)
+	while (++r < x->h)
 	{
 		c = -1;
-		while (++c < w)
+		while (++c < x->w)
 		{
-			if (lines[w * r + c] == '1')
+			if (lines[x->w * r + c] == '1')
 				x->map[r][c] = MAP_WALL;
-			else if (lines[w * r + c] == 'E')
+			else if (lines[x->w * r + c] == 'E')
 				x->map[r][c] = MAP_EXIT;
-			else if (lines[w * r + c] == 'P')
+			else if (lines[x->w * r + c] == 'P')
 			{
 				x->obj->r = r;
 				x->obj->c = c;
 			}
-			else if (lines[w * r + c] == 'C')
+			else if (lines[x->w * r + c] == 'C')
 				ft_obj_push_back(x, OBJ_COLLECTABLE, r, c);
-			else if (lines[w * r + c] == 'N')
+			else if (lines[x->w * r + c] == 'N')
 				ft_obj_push_back(x, OBJ_ENEMY, r, c);
+			else if (lines[x->w * r + c] != '0')
+				exit_invalid(x, "Error\n", "Invalid map element.\n");
 		}
 	}
 }
@@ -119,5 +118,5 @@ void	parse(t_args *x, char *file_name)
 		;
 	check_valid(x);
 	_create_map(x, x->w, x->h);
-	_fill_map(x, x->w, x->h, x->lines);
+	_fill_map(x, -1, -1, x->lines);
 }
