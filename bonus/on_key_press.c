@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:19:57 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:44:35 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:58:01 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ static void	_end_game(t_args *x)
 
 int	on_key_press(int keycode, t_args *x)
 {
-	char		buf[14];
 	t_object	*player;
 
-	buf[13] = '\0';
 	player = x->obj;
 	if (keycode == KEY_ESC)
 		_end_game(x);
