@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:32:06 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:38:44 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 19:59:17 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	parse(t_args *x, char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == ERROR)
-		exit_error(NULL, "open file is failed");
+		exit_error(NULL, "Error\nopen file is failed");
 	_parse_init(x, fd);
 	while (_read_line(x, fd))
 		;
