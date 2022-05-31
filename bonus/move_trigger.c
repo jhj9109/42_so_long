@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 16:50:56 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 16:51:27 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:27:21 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	move_trigger(t_args *x, t_object *player, int direction)
 		_player_move(x, x->obj, direction);
 		if (x->map[player->r][player->c] == MAP_EXIT)
 		{
-			printf("you win! score: %d\npress esc to exit.\n", x->moved);
+			printf("you win! moved: %d\npress esc to exit.\n", x->moved);
 			x->finish = 1;
 			return ;
 		}
