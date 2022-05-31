@@ -71,6 +71,6 @@ void	check_valid(t_args *x)
 		exit_invalid(x, "Error\n", "map isn't arround wall!\n");
 	ft_memset(cnt, 0, 3 * sizeof(int));
 	check_map(x, cnt, 0, 0);
-	x->collects = cnt[1];
+	x->collects = cnt[0];
 	call_error(x, cnt);
 }
