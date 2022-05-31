@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:32:06 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 19:59:17 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:23:27 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ static void	_fill_map(t_args *x, int r, int c, char *lines)
 				ft_obj_push_back(x, OBJ_COLLECTABLE, r, c);
 			else if (lines[x->w * r + c] == 'N')
 				ft_obj_push_back(x, OBJ_ENEMY, r, c);
-			else if (lines[x->w * r + c] != '0')
-				exit_invalid(x, "Error\n", "Invalid map element.\n");
 		}
 	}
 }

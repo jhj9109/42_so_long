@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:09:56 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 18:00:14 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:23:06 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	_ctrl_enemy(t_object *enemy)
 	}
 }
 
-/* 1sec => 12000 */
 int	on_frame(t_args *x)
 {
 	static int	frame = 0;
@@ -74,6 +73,10 @@ int	on_frame(t_args *x)
 				_ctrl_enemy(cur);
 			else if (cur->type == OBJ_PLAYER)
 				_ctrl_player(cur);
+			// if (cur->move)
+			// 	_move_ctrl(cur);
+			// else
+			// 	_img_num_ctrl(cur);
 			cur = cur->next;
 		}
 		map_render(x);
