@@ -1,11 +1,20 @@
-#cc ../minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit file.c
-#cc -L../minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit so_long.c so_long.h
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/31 20:39:37 by hyeonjan          #+#    #+#              #
+#    Updated: 2022/05/31 20:41:07 by hyeonjan         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = so_long
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX_FLAGS = -g -fsanitize=address -L./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L./minilibx_opengl_20191021/ -lmlx -framework OpenGL -framework AppKit
 
 INC_LINK = -I ./includes
 
