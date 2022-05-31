@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonjan <hyeonjan@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:41:00 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/06 19:41:02 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:02:06 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,17 @@ void	*ft_calloc(size_t count, size_t size)
 	i = 0;
 	ft_memset(ret, 0, count * size);
 	return (ret);
+}
+
+char	*ft_itoa(char *p, int n)
+{
+	static char	*alpha = "0123456789";
+
+	while (true)
+	{
+		*(--p) = alpha[n % 10];
+		n /= 10;
+		if (n == 0)
+			return (p);
+	}
 }

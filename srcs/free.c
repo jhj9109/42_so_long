@@ -1,38 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 21:55:36 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/30 21:16:14 by hyeonjan         ###   ########.fr       */
+/*   Created: 2022/05/31 17:00:01 by hyeonjan          #+#    #+#             */
+/*   Updated: 2022/05/31 20:34:26 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	exit_error(t_args *x, char *s)
+void	j_free(void *p)
 {
-	perror(s);
-	if (x)
-		free_args(x);
-	exit(EXIT_FAILURE);
+	if (p)
+		free(p);
 }
 
-void	exit_invalid(t_args *x, char *s1, char *s2)
+void	_free_objects(t_object *head)
 {
-	if (s1)
-		ft_putstr_fd(s1, STDERR_FILENO);
-	if (s2)
-		ft_putstr_fd(s2, STDERR_FILENO);
-	if (x)
-		free_args(x);
-	exit(EXIT_FAILURE);
+	t_object	*cur;
+	t_object	*temp;
+
+	cur = head;
+	while (cur)
+	{
+		temp = cur;
+		cur = cur->next;
+		j_free(temp);
+	}
 }
 
-void	exit_valid(t_args *x)
+void	free_args(t_args *x)
 {
-	free_args(x);
-	exit(EXIT_SUCCESS);
+	int	**map;
+	int	i;
+
+	j_free(x->lines);
+	j_free(x->img1);
+	j_free(x->img2);
+	map = x->map;
+	if (map)
+	{
+		i = -1;
+		while (++i < x->h)
+			j_free(map[i]);
+		j_free(map);
+	}
+	_free_objects(x->obj);
+	j_free(x);
 }

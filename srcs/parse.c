@@ -3,126 +3,116 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonjan <hyeonjan@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:32:06 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/06 19:32:07 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:02:26 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static bool	parse_init(t_args *x, char **lines, int fd, bool *failed)
+static void	_parse_init(t_args *x, int fd)
 {
 	char	*ret;
 
 	ret = get_next_line(fd);
 	if (ret == NULL)
-		return (false);
-	if (ret[ft_strlen(ret) - 1] == '\n')
-		ret[ft_strlen(ret) - 1] = '\0';
+		exit_invalid(x, "Error\n", "Invalid first line! \
+			Can't read first line!\n");
+	if (ret[ft_strlen(ret) - 1] != '\n')
+		exit_invalid(x, "Error\n", "Invalid first line! \
+			It didn't end with \\n\n");
+	ret[ft_strlen(ret) - 1] = '\0';
 	x->w = ft_strlen(ret);
+	if (x->w == 0)
+		exit_invalid(x, "Error\n", "Invalid first line! w is zero.\n");
 	x->h = 1;
-	*failed = false;
-	*lines = ret;
-	return (true);
+	x->lines = ret;
 }
 
-static bool	read_line(t_args *x, char **lines, int fd, bool *failed)
+static bool	_read_line(t_args *x, int fd)
 {
-	char	*ret;
+	char		*ret;
+	static int	a = -1;
 
+	a++;
 	ret = get_next_line(fd);
 	if (ret == NULL)
 		return (false);
 	if (ret[ft_strlen(ret) - 1] == '\n')
 		ret[ft_strlen(ret) - 1] = '\0';
-	if (*failed)
-		free(ret);
-	else if (x->w != ft_strlen(ret))
+	if (x->w != (int)ft_strlen(ret))
 	{
-		*failed = true;
 		free(ret);
+		exit_invalid(x, "Error\n", "Invalid line! \
+						width and line legnth doesn't match.\n");
 	}
-	else
-	{
-		*lines = ft_strjoin(*lines, ret);
-		if (*lines == NULL)
-			exit_error(x, "malloc fail");
-		free(ret);
-		x->h = x->h + 1;
-	}
+	x->lines = ft_strjoin(x->lines, ret);
+	free(ret);
+	if (x->lines == NULL)
+		exit_error(x, "Malloc error at ft_strjoin.\n");
+	x->h++;
 	return (true);
 }
 
-static void	create_map(t_args *x, int w, int h)
+static void	_create_map(t_args *x, int w, int h)
 {
 	int	i;
-	int	**m;
+	int	**map;
 
-	m = ft_calloc(h, sizeof(int **));
-	if (m == NULL)
-		exit_error(x, "malloc fail");
+	map = ft_calloc(h, sizeof(int **));
+	if (map == NULL)
+		exit_error(x, "malloc fail at create_map\n");
 	i = -1;
 	while (++i < h)
 	{
-		m[i] = ft_calloc(w, sizeof(int *));
-		if (m[i] == NULL)
+		map[i] = ft_calloc(w, sizeof(int *));
+		if (map[i] == NULL)
 		{
 			while (--i >= 0)
-				free(m[i]);
-			free(m);
-			exit_error(x, "malloc fail");
+				free(map[i]);
+			free(map);
+			exit_error(x, "malloc fail at create_map[i]\n");
 		}
 	}
-	x->map = m;
+	x->map = map;
 }
 
-static void	fill_map(t_args *x, int w, int h, char **lines_p)
+static void	_fill_map(t_args *x, int r, int c, char *lines)
 {
-	int		r;
-	int		c;
-	char	*lines;
-	int		**m;
-
-	lines = *lines_p;
-	m = x->map;
 	r = -1;
-	while (r < h)
+	while (++r < x->h)
 	{
 		c = -1;
-		while (c < w)
+		while (++c < x->w)
 		{
-			if (lines_p[w * r + c] == '1')
-				m[r][c] = WALL;
-			else if (lines_p[w * r + c] == 'C')
-				m[r][c] = COLLECTABLE;
-			else if (lines_p[w * r + c] == 'E')
-				m[r][c] = MAP_EXIT;
-			else if (lines_p[w * r + c] == 'P')
-				m[r][c] = PLAYER;
+			if (lines[x->w * r + c] == '1')
+				x->map[r][c] = MAP_WALL;
+			else if (lines[x->w * r + c] == 'E')
+				x->map[r][c] = MAP_EXIT;
+			else if (lines[x->w * r + c] == 'P')
+			{
+				x->obj->r = r;
+				x->obj->c = c;
+			}
+			else if (lines[x->w * r + c] == 'C')
+				ft_obj_push_back(x, OBJ_COLLECTABLE, r, c);
 		}
 	}
-	free(*lines_p);
-	*lines_p = NULL;
 }
 
-bool	parse(t_args *x, int fd)
-{
-	t_list	*last_node;
-	char	*lines;
-	bool	failed;
+void	parse(t_args *x, char *file_name)
+{	
+	int	fd;
 
-	if (parse_init(x, &last_node, fd, &failed))
-		return (false);
-	while (read_line(x, &lines, fd, &failed))
+	fd = open(file_name, O_RDONLY);
+	if (fd == ERROR)
+		exit_error(NULL, "Error\nopen file is failed");
+	_parse_init(x, fd);
+	while (_read_line(x, fd))
 		;
-	if (failed || x->w == 0 || !check_valid(x, lines))
-	{
-		free(lines);
-		return (false);
-	}
-	create_map(x, x->w, x->h);
-	fill_map(x, x->w, x->h, &lines);
-	return (true);
+	check_valid(x);
+	_create_map(x, x->w, x->h);
+	_fill_map(x, -1, -1, x->lines);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonjan <hyeonjan@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:34:11 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/06 19:34:14 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:43:33 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	*free_and_return_null(char	*p)
 {
 	if (p)
 		free(p);
-	return ((char *) NULL);
+	return (NULL);
 }
 
 static char	*ft_read_and_update(int fd, char *save)
