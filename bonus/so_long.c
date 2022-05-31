@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:37:57 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/30 21:20:34 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:07:21 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int ac, char **av)
 	x->mlx = mlx_init();
 	if (!(x->mlx))
 		exit_error(x, "mlx_init failed\n");
-	x->win = mlx_new_window(x->mlx, x->w * TILE_SIZE, x->h * TILE_SIZE, "./so_long");
+	x->win = mlx_new_window(x->mlx, \
+							x->w * TILE_SIZE, x->h * TILE_SIZE, "./so_long");
 	if (!(x->win))
 		exit_error(x, "mlx_new_window failed\n");
 	map_init(x);

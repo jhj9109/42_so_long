@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   on_key_press.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 17:19:57 by hyeonjan          #+#    #+#             */
+/*   Updated: 2022/05/31 17:44:35 by hyeonjan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	_end_game(t_args *x)
@@ -18,16 +30,14 @@ int	on_key_press(int keycode, t_args *x)
 	if (!x->finish)
 	{
 		if (keycode == KEY_W)
-		move_trigger(x, player, UP);
-	else if (keycode == KEY_A)
-		move_trigger(x, player, LEFT);
-	else if (keycode == KEY_S)
-		move_trigger(x, player, DOWN);
-	else if (keycode == KEY_D)
-		move_trigger(x, player, RIGHT);
+			move_trigger(x, player, UP);
+		else if (keycode == KEY_A)
+			move_trigger(x, player, LEFT);
+		else if (keycode == KEY_S)
+			move_trigger(x, player, DOWN);
+		else if (keycode == KEY_D)
+			move_trigger(x, player, RIGHT);
 	}
-	// printf("keycode:%d && r,c: (%d,%d), col:%d, moved:%d\n",
-	// 	keycode, player->r, player->c, x->collects, x->moved);
 	map_render(x);
 	return (0);
 }

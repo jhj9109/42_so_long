@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:41:00 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/23 21:49:53 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:02:06 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ char	*ft_itoa(char *p, int n)
 		*(--p) = alpha[n % 10];
 		n /= 10;
 		if (n == 0)
-			return p;
+			return (p);
 	}
 }

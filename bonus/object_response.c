@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object_response.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 16:54:42 by hyeonjan          #+#    #+#             */
+/*   Updated: 2022/05/31 16:58:56 by hyeonjan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	_collectable_response(t_args *x, t_object *collectable)
@@ -6,7 +18,6 @@ static void	_collectable_response(t_args *x, t_object *collectable)
 	{
 		collectable->status = 1;
 		collectable->move = -1;
-		// collectable->img_num = COLLECTABLE_IMAGE_LENGTH - 1;
 		x->collects--;
 		printf("-------- earn collectable ---- remain: %d ---\n", x->collects);
 	}
@@ -18,9 +29,9 @@ static void	_object_die(t_object *object)
 	object->move = -1;
 }
 
-static void _between_player_object(t_args *x, t_object *player, int r, int c)
+static void	_between_player_object(t_args *x, t_object *player, int r, int c)
 {
-	t_object *cur;
+	t_object	*cur;
 
 	cur = x->obj->next;
 	while (cur)
@@ -40,9 +51,9 @@ static void _between_player_object(t_args *x, t_object *player, int r, int c)
 	}	
 }
 
-static void _between_enemy_object(t_args *x, t_object *enemy, int r, int c)
+static void	_between_enemy_object(t_args *x, t_object *enemy, int r, int c)
 {
-	t_object *cur;
+	t_object	*cur;
 
 	if (x->map[r][c])
 	{
@@ -53,6 +64,7 @@ static void _between_enemy_object(t_args *x, t_object *enemy, int r, int c)
 	while (cur)
 	{
 		if (cur->r == r && cur->c == c && \
+			cur->type != OBJ_PLAYER && \
 			cur->oid != enemy->oid)
 		{
 			_object_die(enemy);
@@ -68,15 +80,12 @@ void	object_response(t_args *x, int r, int c)
 	t_object	*player;
 
 	player = x->obj;
-	_between_player_object(x, player, r, c);// earn col || die by enemy
-	if (!player->status)//없어도 될듯?
+	_between_player_object(x, player, r, c);
+	cur = x->obj->next;
+	while (cur)
 	{
-		cur = x->obj->next;
-		while (cur)
-		{
-			if (cur->type == OBJ_ENEMY && cur->status == 0)
-				_between_enemy_object(x, cur, cur->r, cur->c);//only enemy_die
-			cur = cur->next;
-		}
+		if (cur->type == OBJ_ENEMY && cur->status == 0)
+			_between_enemy_object(x, cur, cur->r, cur->c);
+		cur = cur->next;
 	}
 }

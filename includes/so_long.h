@@ -197,5 +197,6 @@ int	on_frame(t_args *x);
 
 t_object	*ft_objlast(t_object *head);
 t_object	*ft_objnew(t_args *x, int type, int r, int c);
+void		ft_obj_push_back(t_args *x, int type, int r, int c);
 
 #endif

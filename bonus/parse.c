@@ -6,21 +6,23 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:32:06 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/30 21:03:58 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:38:44 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	parse_init(t_args *x, int fd)
+static void	_parse_init(t_args *x, int fd)
 {
 	char	*ret;
 
 	ret = get_next_line(fd);
 	if (ret == NULL)
-		exit_invalid(x, "Error\n", "Invalid first line! Can't read first line!\n");
+		exit_invalid(x, "Error\n", "Invalid first line! \
+			Can't read first line!\n");
 	if (ret[ft_strlen(ret) - 1] != '\n')
-		exit_invalid(x, "Error\n", "Invalid first line! It didn't end with \\n\n");
+		exit_invalid(x, "Error\n", "Invalid first line! \
+			It didn't end with \\n\n");
 	ret[ft_strlen(ret) - 1] = '\0';
 	x->w = ft_strlen(ret);
 	if (x->w == 0)
@@ -29,10 +31,10 @@ static void	parse_init(t_args *x, int fd)
 	x->lines = ret;
 }
 
-static bool	read_line(t_args *x, int fd)
+static bool	_read_line(t_args *x, int fd)
 {
-	char	*ret;
-	static	int a = -1;
+	char		*ret;
+	static int	a = -1;
 
 	a++;
 	ret = get_next_line(fd);
@@ -43,7 +45,8 @@ static bool	read_line(t_args *x, int fd)
 	if (x->w != (int)ft_strlen(ret))
 	{
 		free(ret);
-		exit_invalid(x, "Error\n", "Invalid line! width and line legnth doesn't match.\n");
+		exit_invalid(x, "Error\n", "Invalid line! \
+						width and line legnth doesn't match.\n");
 	}
 	x->lines = ft_strjoin(x->lines, ret);
 	free(ret);
@@ -53,7 +56,7 @@ static bool	read_line(t_args *x, int fd)
 	return (true);
 }
 
-static void	create_map(t_args *x, int w, int h)
+static void	_create_map(t_args *x, int w, int h)
 {
 	int	i;
 	int	**map;
@@ -76,10 +79,10 @@ static void	create_map(t_args *x, int w, int h)
 	x->map = map;
 }
 
-static void	fill_map(t_args *x, int w, int h, char *lines)
+static void	_fill_map(t_args *x, int w, int h, char *lines)
 {
-	int		r;
-	int		c;
+	int			r;
+	int			c;
 
 	r = -1;
 	while (++r < h)
@@ -97,9 +100,9 @@ static void	fill_map(t_args *x, int w, int h, char *lines)
 				x->obj->c = c;
 			}
 			else if (lines[w * r + c] == 'C')
-				ft_objlast(x->obj)->next = ft_objnew(x, OBJ_COLLECTABLE, r, c);
+				ft_obj_push_back(x, OBJ_COLLECTABLE, r, c);
 			else if (lines[w * r + c] == 'N')
-				ft_objlast(x->obj)->next = ft_objnew(x, OBJ_ENEMY, r, c);
+				ft_obj_push_back(x, OBJ_ENEMY, r, c);
 		}
 	}
 }
@@ -111,10 +114,10 @@ void	parse(t_args *x, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd == ERROR)
 		exit_error(NULL, "open file is failed");
-	parse_init(x, fd);
-	while (read_line(x, fd))
+	_parse_init(x, fd);
+	while (_read_line(x, fd))
 		;
 	check_valid(x);
-	create_map(x, x->w, x->h);
-	fill_map(x, x->w, x->h, x->lines);
+	_create_map(x, x->w, x->h);
+	_fill_map(x, x->w, x->h, x->lines);
 }

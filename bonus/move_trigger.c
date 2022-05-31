@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_trigger.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 16:50:56 by hyeonjan          #+#    #+#             */
+/*   Updated: 2022/05/31 16:51:27 by hyeonjan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-static int	dr[4] = {-1, 0, 1, 0};
-static int	dc[4] = {0, 1, 0, -1};
+static int	g_dr[4] = {-1, 0, 1, 0};
+static int	g_dc[4] = {0, 1, 0, -1};
 
 static bool	_can_move(t_args *x, int r, int c, int direction)
 {
 	int			nr;
 	int			nc;
 
-	nr = r + dr[direction];
-	nc = c + dc[direction];
+	nr = r + g_dr[direction];
+	nc = c + g_dc[direction];
 	if (x->map[nr][nc] == MAP_WALL ||
 		(x->map[nr][nc] == MAP_EXIT && x->collects))
 		return (false);
@@ -43,8 +55,8 @@ static void	_enemies_move(t_args *x)
 
 static void	_player_move(t_args *x, t_object *player, int direction)
 {
-	player->r = player->r + dr[direction];
-	player->c = player->c + dc[direction];
+	player->r = player->r + g_dr[direction];
+	player->c = player->c + g_dc[direction];
 	x->moved++;
 	if (x->moved < 0)
 		x->moved = 0;

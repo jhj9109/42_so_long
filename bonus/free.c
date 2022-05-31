@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 17:00:01 by hyeonjan          #+#    #+#             */
+/*   Updated: 2022/05/31 17:00:46 by hyeonjan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	j_free(void *p)
@@ -8,7 +20,7 @@ void	j_free(void *p)
 
 void	free_args(t_args *x)
 {
-	int			**map;
+	int	**map;
 	int	i;
 
 	j_free(x->lines);
@@ -19,8 +31,8 @@ void	free_args(t_args *x)
 	{
 		i = -1;
 		while (++i < x->h)
-			free(map[i]);
-		free(map);
+			j_free(map[i]);
+		j_free(map);
 	}
-	free(x);
+	j_free(x);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 20:54:29 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/30 21:01:48 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 16:44:22 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	call_error(t_args *x, int cnt[3])
 		exit_invalid(x, "Error\n", "Player is only one!\n");
 }
 
-static void	check_map(t_args *x, int cnt[3], int r, int c)// 0:출구, 1:수집품, 2:시작지점
+static void	check_map(t_args *x, int cnt[3], int r, int c)
 {	
 	r = 0;
 	while (++r < x->h)
