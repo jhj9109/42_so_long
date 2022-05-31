@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:34:52 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 21:39:44 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:49:26 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 # include "mlx.h"
 # include <unistd.h>
 # include <stdbool.h>
-# include <stdio.h>/* perror, strerror */
-# include <fcntl.h>/* open, close, read, write */
-# include <stdlib.h>/* malloc, free, exit */
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
 
 /* enum */
 typedef enum e_enum_obj
@@ -78,14 +78,6 @@ typedef enum e_status
 }				t_status;
 
 /* struct */
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
 
 typedef struct s_object
 {
@@ -103,8 +95,6 @@ typedef struct s_args
 {
 	t_object	*obj;
 	char		*lines;
-	t_data		*img1;
-	t_data		*img2;
 	void		*tile_img[TILE_IMAGE_LENGTH];
 	void		*player_img[PLAYER_IMAGE_LENGTH];
 	void		*collectable_img[COLLECTABLE_IMAGE_LENGTH];
@@ -116,7 +106,6 @@ typedef struct s_args
 	int			moved;
 	void		*mlx;
 	void		*win;
-	bool		lock;
 	int			finish;
 }				t_args;
 
@@ -180,23 +169,5 @@ void		parse(t_args *x, char *file_name);
 
 /* t_args_init */
 void		t_args_init(t_args **x);
-
-/* trgb */
-// int	create_trgb(unsigned char t, unsigned char r,
-//					unsigned char g, unsigned char b);
-// unsigned char	get_t(int trgb);
-// unsigned char	get_r(int trgb);
-// unsigned char	get_g(int trgb);
-// unsigned char	get_b(int trgb);
-
-/* trgb_int */
-// int	create_trgb_int(int t, int r, int g, int b);
-// int	get_t_int(int trgb);
-// int	get_r_int(int trgb);
-// int	get_g_int(int trgb);
-// int	get_b_int(int trgb);
-
-// void	my_mlx_pixel_get_info(t_data *data, int x, int y, int trgb[4]);
-// void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

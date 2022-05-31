@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:00:01 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 20:34:26 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:49:08 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	free_args(t_args *x)
 	int	i;
 
 	j_free(x->lines);
-	j_free(x->img1);
-	j_free(x->img2);
 	map = x->map;
 	if (map)
 	{
