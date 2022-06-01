@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:32:06 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 21:02:26 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:39:56 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,12 @@ static void	_fill_map(t_args *x, int r, int c, char *lines)
 void	parse(t_args *x, char *file_name)
 {	
 	int	fd;
+	int	len;
 
+	len = (int)ft_strlen(file_name);
+	if (len < 4 || file_name[len - 4] != '.' || file_name[len - 3] != 'b' || \
+		file_name[len - 2] != 'e' || file_name[len - 1] != 'r')
+		exit_invalid(x, "Error\n", "argument is no *.ber\n");
 	fd = open(file_name, O_RDONLY);
 	if (fd == ERROR)
 		exit_error(NULL, "Error\nopen file is failed");
