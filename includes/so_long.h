@@ -6,7 +6,7 @@
 /*   By: hyeonjan <hyeonjan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 19:34:52 by hyeonjan          #+#    #+#             */
-/*   Updated: 2022/05/31 21:49:26 by hyeonjan         ###   ########.fr       */
+/*   Updated: 2022/06/01 12:47:44 by hyeonjan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,17 +143,17 @@ char		*ft_strchr(const char *str, int c);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_strjoin_or_dup(char *prev, char *added);
 
-/* object_render */
-void		object_render(t_args *x);
-
-/* object_response */
-void		object_response(t_args *x, int r, int c);
-
 /* map_init */
 void		map_init(t_args *x);
 
 /* map_render */
 void		map_render(t_args *x);
+
+/* object_render */
+void		object_render(t_args *x);
+
+/* object_response */
+void		object_response(t_args *x, int r, int c);
 
 /* can_move */
 void		move_trigger(t_args *x, t_object *player, int direction);
